@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="651081bf-d789-4263-a2d4-0761e1da3e35" name="Changes" comment="initial test">
+    <list default="true" id="651081bf-d789-4263-a2d4-0761e1da3e35" name="Changes" comment="Data Scraper to fetch solar irradiance and temperature">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/solar_predictor_VE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/solar_predictor_VE.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +38,9 @@
     "accountId": "febf6688-1d74-458c-b8b7-693432723732"
   }
 }]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 5
 }]]></component>
@@ -46,6 +52,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.data_scraper_nasa.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -58,6 +65,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\srier\Desktop\Pycharm\solar_predictor_VE\.venv\python_scripts" />
+      <recent name="C:\Users\srier\Desktop\Pycharm\solar_predictor_VE" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -74,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1727796974295</updated>
-      <workItem from="1727796977247" duration="960000" />
+      <workItem from="1727796977247" duration="11994000" />
     </task>
     <task id="LOCAL-00001" summary="initial test">
       <option name="closed" value="true" />
@@ -84,7 +97,31 @@
       <option name="project" value="LOCAL" />
       <updated>1727797604242</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1727798053130</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727798053130</updated>
+    </task>
+    <task id="LOCAL-00003" summary="requirements.txt for packages">
+      <option name="closed" value="true" />
+      <created>1727798446459</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727798446459</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Data Scraper to fetch solar irradiance and temperature">
+      <option name="closed" value="true" />
+      <created>1727867784661</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727867784661</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,9 +129,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial test" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial test" />
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="requirements.txt for packages" />
+    <MESSAGE value="Data Scraper to fetch solar irradiance and temperature" />
+    <option name="LAST_COMMIT_MESSAGE" value="Data Scraper to fetch solar irradiance and temperature" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/solar_predictor_VE$main.coverage" NAME="main Coverage Results" MODIFIED="1727797732170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv" />
+    <SUITE FILE_PATH="coverage/solar_predictor_VE$data_scraper_nasa.coverage" NAME="data_scraper_nasa Coverage Results" MODIFIED="1727867748047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
+    <SUITE FILE_PATH="coverage/solar_predictor_VE$main.coverage" NAME="main Coverage Results" MODIFIED="1727862835591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv/python_scripts" />
   </component>
 </project>
