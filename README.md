@@ -8,13 +8,13 @@ key features:
 4) Version control
 
 The folder structure is as follows:
-solar-energy-prediction/
-│
-├── data/               # Folder to store raw and processed data
-├── src/                # Folder for Python scripts
-│   ├── data_scraper.py # Script to scrape or fetch data
-│   ├── model.py        # Machine learning models 
-│   ├── visualization.py# Script for visualization 
-├── tests/              # Folder for unit tests
-├── requirements.txt    # List of project dependencies
-└── README.md           # Project documentation
+solar-energy-prediction <br/>
+│<br/>
+├── data/               # Folder to store raw and processed data<br/>
+├── src/                # Folder for Python scripts<br/>
+│   ├── data_scraper.py # Script to scrape or fetch data<br/>
+│   ├── model.py        # Machine learning models <br/>
+│   ├── visualization.py# Script for visualization <br/>
+├── tests/              # Folder for unit tests<br/>
+├── requirements.txt    # List of project dependencies<br/>
+└── README.md           # Project documentation<br/>
