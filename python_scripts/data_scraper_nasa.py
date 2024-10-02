@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 def fetch_solar_data(latitude, longitude, start_date, end_date):
     """
@@ -32,10 +33,22 @@ def fetch_solar_data(latitude, longitude, start_date, end_date):
         raise Exception(f"Error fetching data: {response.status_code}")
 
 
-# to test script when running it directly, location : london, Period : 30days in june
+def save_data_to_json(data, start_date, end_date):
+    data_folder = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')),'data')
+    os.makedirs(data_folder, exist_ok=True)
+    filename = f"solar_data_{start_date}_to_{end_date}.json"
+    file_path = os.path.join(data_folder, filename)
+
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+    print(f"Data is saved to {file_path}")
+
+# to test script when running it directly, location : london, Period : 15days in may
 if __name__ == "__main__":
     try:
-        solar_data = fetch_solar_data(51.54501, -0.00564, '20240601', '20240630')
-        print(json.dumps(solar_data, indent=3))
+        latitude, longitude = 51.54501, -0.00564
+        start_date , end_date = '20240501', '20240515'
+        solar_data = fetch_solar_data(latitude, longitude, start_date, end_date)
+        save_data_to_json(solar_data, start_date, end_date)
     except Exception as e:
-        print(str(e))
+        print(f"An error occurred: {str(e)}")
