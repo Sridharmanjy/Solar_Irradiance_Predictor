@@ -23,6 +23,7 @@ def fetch_solar_data(latitude, longitude, start_date, end_date):
         'format': 'JSON'
     }
 
+
     response = requests.get(base_url, params=params)
 
     if response.status_code == 200: # 200 = success , https://power.larc.nasa.gov/docs/services/api/
