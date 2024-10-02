@@ -43,7 +43,7 @@ def save_data_to_json(data, start_date, end_date):
         json.dump(data, file, indent=4)
     print(f"Data is saved to {file_path}")
 
-# to test script when running it directly, location : london, Period : 15days in may
+# to test script when running it directly, location : london, Period : 15days in May
 if __name__ == "__main__":
     try:
         latitude, longitude = 51.54501, -0.00564
