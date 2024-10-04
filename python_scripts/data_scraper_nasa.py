@@ -4,7 +4,7 @@ import os
 
 def fetch_solar_data(latitude, longitude, start_date, end_date):
     """
-    Fetch solar irradiance (kW-hr/m^2/day) and temperature at 2m (C) data from NASA POWER API
+    Fetch solar irradiance (kW-hr/m^2/day), Solar Zenith Angle and temperature at 2m (C) data from NASA POWER API
     https://power.larc.nasa.gov/#resources
     :param community : Agroclimatology (ag) /Sustainable Buildings(sb) / Renewable Energy (re)
     :param latitude: Latitude of the location
@@ -15,7 +15,7 @@ def fetch_solar_data(latitude, longitude, start_date, end_date):
     """
     base_url = "https://power.larc.nasa.gov/api/temporal/hourly/point"
     params = {
-        'parameters': 'ALLSKY_SFC_SW_DWN,T2M',
+        'parameters': 'ALLSKY_SFC_SW_DWN,T2M,SZA',
         'community': 'RE',
         'longitude': longitude,
         'latitude': latitude,
@@ -47,7 +47,7 @@ def save_data_to_json(data, start_date, end_date):
 if __name__ == "__main__":
     try:
         latitude, longitude = 51.54501, -0.00564
-        start_date , end_date = '20240501', '20240515'
+        start_date , end_date = '20240515', '20240615'
         solar_data = fetch_solar_data(latitude, longitude, start_date, end_date)
         save_data_to_json(solar_data, start_date, end_date)
     except Exception as e:
