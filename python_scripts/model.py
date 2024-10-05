@@ -3,7 +3,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import os
+import numpy as np
 pd.set_option('display.max_columns', None)
+season_mapping = {1: "Winter", 2: "Spring", 3: "Summer", 4: "Fall"}
 
 def assign_season(df):
     """
@@ -32,6 +34,21 @@ def assign_season(df):
 
     return df
 
+
+def create_zenith_angle_bins(df):
+    """
+    Creates bins for Solar Zenith Angle in 10-degree increments.
+    :param df: DataFrame containing the data.
+    :return: DataFrame with an additional column for zenith angle bins.
+    """
+    bins = np.arange(0, 100, 10)  # Create bins from 0 to 90 degrees (in steps of 10)
+    labels = [f"{i}-{i + 10}°" for i in range(0, 90, 10)]  # Create labels for the bins (e.g., "0-10°", "10-20°")
+
+    # Create a new column with the binned zenith angles
+    df['Zenith_Angle_Bin'] = pd.cut(df['Solar_zenith_angle'], bins=bins, labels=labels, right=True)
+
+    return df
+
 def feature_engineering(df):
     """
     Extracts useful features such as hour of the day, month, temperature, and solar zenith angle
@@ -43,9 +60,46 @@ def feature_engineering(df):
     df_clean = df.dropna(subset=['Solar_Irradiance', 'Solar_zenith_angle', 'Temperature', 'Season_Encoded'])
     df_clean = df_clean[df_clean['Solar_Irradiance'] != 0.00]
     # Keep relevant features (including the target)
-    features = df_clean[['Solar_Irradiance', 'Solar_zenith_angle', 'Temperature', 'Season_Encoded']]
+    features = df_clean[['Solar_Irradiance', 'Solar_zenith_angle', 'Temperature', 'Season_Encoded','Zenith_Angle_Bin']]
 
     return features
+
+
+def group_by_season_and_zenith_angle(df):
+    """
+    Groups the data by season and zenith angle bins, and analyzes the model for each group.
+    """
+    # Get unique seasons
+    seasons = df['Season_Encoded'].unique()
+
+    for season in seasons:
+        print(f"\n--- Analysis for Season: {season_mapping.get(season, 'Unknown Season')} ---")
+
+        # Filter the data for the current season
+        df_season = df[df['Season_Encoded'] == season]
+
+        # Get unique zenith angle bins for the season
+        zenith_groups = df_season['Zenith_Angle_Bin'].unique()
+
+        for zenith_bin in zenith_groups:
+            print(f"--- Zenith Angle Bin: {zenith_bin} ---")
+
+            # Filter the data for the current zenith angle bin within the season
+            df_zenith = df_season[df_season['Zenith_Angle_Bin'] == zenith_bin]
+
+            # Skip if no data for this zenith bin
+            if df_zenith.empty:
+                print(f"Skipping bin {zenith_bin}: No data available.")
+                continue
+
+            # Split the data
+            X_train, X_test, y_train, y_test = split_data(df_zenith)
+
+            # Train the model
+            model = train_model(X_train, y_train)
+
+            # Evaluate the model
+            evaluate_model(model, X_test, y_test)
 
 
 def split_data(df):
@@ -132,24 +186,20 @@ def train_and_evaluate_by_season(df):
 if __name__ == "__main__":
     try:
         # Load the cleaned solar data
-        start_date, end_date = '20240515', '20240615'
+        start_date , end_date = '20230101', '20240101'
         data_folder = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')), 'data')
         filename = f"cleaned_solar_data_{start_date}_to_{end_date}.json"
         file_path = os.path.join(data_folder, filename)
         cleaned_data = pd.read_json(file_path)
 
-        cleaned_data_season = assign_season(cleaned_data)
-'''
-        # Feature engineering
-        features = feature_engineering(cleaned_data_season)
+        # Assign seasons and create zenith angle bins
+        cleaned_data = assign_season(cleaned_data)
+        cleaned_data = create_zenith_angle_bins(cleaned_data)
 
-        # Split the data
-        X_train, X_test, y_train, y_test = split_data(features)
+        # Perform feature engineering
+        features = feature_engineering(cleaned_data)
 
-        # Train the model
-        model = train_model(X_train, y_train)
-'''
-        # Evaluate the model
-        train_and_evaluate_by_season(cleaned_data_season)
+        # Group and analyze by season and zenith angle bins
+        group_by_season_and_zenith_angle(features)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
