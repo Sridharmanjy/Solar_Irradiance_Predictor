@@ -35,20 +35,6 @@ def assign_season(df):
     return df
 
 
-def create_zenith_angle_bins(df):
-    """
-    Creates bins for Solar Zenith Angle in 10-degree increments.
-    :param df: DataFrame containing the data.
-    :return: DataFrame with an additional column for zenith angle bins.
-    """
-    bins = np.arange(0, 100, 10)  # Create bins from 0 to 90 degrees (in steps of 10)
-    labels = [f"{i}-{i + 10}°" for i in range(0, 90, 10)]  # Create labels for the bins (e.g., "0-10°", "10-20°")
-
-    # Create a new column with the binned zenith angles
-    df['Zenith_Angle_Bin'] = pd.cut(df['Solar_zenith_angle'], bins=bins, labels=labels, right=True)
-
-    return df
-
 def feature_engineering(df):
     """
     Extracts useful features such as hour of the day, month, temperature, and solar zenith angle
@@ -60,46 +46,9 @@ def feature_engineering(df):
     df_clean = df.dropna(subset=['Solar_Irradiance', 'Solar_zenith_angle', 'Temperature', 'Season_Encoded'])
     df_clean = df_clean[df_clean['Solar_Irradiance'] != 0.00]
     # Keep relevant features (including the target)
-    features = df_clean[['Solar_Irradiance', 'Solar_zenith_angle', 'Temperature', 'Season_Encoded','Zenith_Angle_Bin']]
+    features = df_clean[['Solar_Irradiance', 'Solar_zenith_angle', 'Temperature', 'Season_Encoded','DateTime']]
 
     return features
-
-
-def group_by_season_and_zenith_angle(df):
-    """
-    Groups the data by season and zenith angle bins, and analyzes the model for each group.
-    """
-    # Get unique seasons
-    seasons = df['Season_Encoded'].unique()
-
-    for season in seasons:
-        print(f"\n--- Analysis for Season: {season_mapping.get(season, 'Unknown Season')} ---")
-
-        # Filter the data for the current season
-        df_season = df[df['Season_Encoded'] == season]
-
-        # Get unique zenith angle bins for the season
-        zenith_groups = df_season['Zenith_Angle_Bin'].unique()
-
-        for zenith_bin in zenith_groups:
-            print(f"--- Zenith Angle Bin: {zenith_bin} ---")
-
-            # Filter the data for the current zenith angle bin within the season
-            df_zenith = df_season[df_season['Zenith_Angle_Bin'] == zenith_bin]
-
-            # Skip if no data for this zenith bin
-            if df_zenith.empty:
-                print(f"Skipping bin {zenith_bin}: No data available.")
-                continue
-
-            # Split the data
-            X_train, X_test, y_train, y_test = split_data(df_zenith)
-
-            # Train the model
-            model = train_model(X_train, y_train)
-
-            # Evaluate the model
-            evaluate_model(model, X_test, y_test)
 
 
 def split_data(df):
@@ -109,7 +58,7 @@ def split_data(df):
     :return: X_train, X_test, y_train, y_test
     """
     # Define target variable and features
-    x = df[['Temperature', 'Solar_zenith_angle']]
+    x = df[['Temperature']]
     y = df['Solar_Irradiance']
 
     # Split the data into 80% training and 20% testing sets
@@ -128,7 +77,7 @@ def train_model(X_train, y_train):
     model = LinearRegression()
     model.fit(X_train, y_train)
     r_sq = model.score(X_train, y_train)
-    print(f'The R squared value for the test model is {r_sq}')
+    print(f'The R squared value for the test model is {r_sq:.4f}')
 
     return model
 
@@ -151,21 +100,23 @@ def evaluate_model(model, X_test, y_test):
     # Calculate R-squared (R²)
     r2 = r2_score(y_test, y_pred)
 
-    print(f'The R squared value for the training model is {r2}')
+    print(f'The R squared value for the training model is {r2:.4f}')
     print(f"Mean Absolute Error (MAE): {mae:.4f}")
     print(f"Mean Squared Error (MSE): {mse:.4f}")
 
+    return y_pred
 
 def train_and_evaluate_by_season(df):
     """
     Trains and evaluates separate models for each season.
     :param df: DataFrame with season-encoded data.
     """
+    results = {}
     seasons = df['Season_Encoded'].unique()
 
     for season in seasons:
 
-        print(f"Training and Evaluating Model for Season {season}")
+        print(f"Training and Evaluating Model for Season {season_mapping.get(season, 'Unknown Season')}")
 
         # Filter the data for the current season
         df_season = df[df['Season_Encoded'] == season]
@@ -179,8 +130,15 @@ def train_and_evaluate_by_season(df):
         # Train the model
         model = train_model(X_train, y_train)
 
+        # Predict the test set
+        y_pred = model.predict(X_test)
+
         # Evaluate the model
         evaluate_model(model, X_test, y_test)
+
+        results[season] = (model, y_pred, X_train, X_test, y_train, y_test)
+
+    return results
 
 # 5. Main Function to Execute the Model Training and Evaluation
 if __name__ == "__main__":
@@ -192,14 +150,13 @@ if __name__ == "__main__":
         file_path = os.path.join(data_folder, filename)
         cleaned_data = pd.read_json(file_path)
 
-        # Assign seasons and create zenith angle bins
+        # Assign seasons
         cleaned_data = assign_season(cleaned_data)
-        cleaned_data = create_zenith_angle_bins(cleaned_data)
 
         # Perform feature engineering
         features = feature_engineering(cleaned_data)
 
         # Group and analyze by season and zenith angle bins
-        group_by_season_and_zenith_angle(features)
+        train_and_evaluate_by_season(features)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
