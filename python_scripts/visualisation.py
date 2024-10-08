@@ -11,7 +11,7 @@ def plot_actual_by_season(df, results):
     """
        Plots the actual vs predicted solar irradiance values over time, grouped by season.
        Skips invalid results.
-       """
+    """
 
     seasons = df['Season_Encoded'].unique()
 
@@ -46,7 +46,7 @@ def plot_actual_by_season(df, results):
 
             plt.xlabel('Temperature')
             plt.ylabel('Solar Irradiance (kW-hr/m^2)')
-            plt.title(f'Actual vs Predicted Solar Irradiance ({season_mapping.get(season)})')
+            plt.title(f'Actual Solar Irradiance ({season_mapping.get(season)}) with the predicted linear regression equation')
             plt.xticks(rotation=45)
             plt.legend()
             plt.grid(True)
@@ -82,7 +82,7 @@ def plot_avg_irradiance_by_season(df):
     plt.show()
 
 if __name__ == "__main__":
-    # Assuming 'features', 'y_test', and 'y_pred' are already defined
+
     try:
         # Scatter plot of solar irradiance vs temperature
 

@@ -140,7 +140,7 @@ def train_and_evaluate_by_season(df):
 
     return results
 
-# 5. Main Function to Execute the Model Training and Evaluation
+
 if __name__ == "__main__":
     try:
         # Load the cleaned solar data
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         # Perform feature engineering
         features = feature_engineering(cleaned_data)
 
-        # Group and analyze by season and zenith angle bins
+        # Group and analyze by season
         train_and_evaluate_by_season(features)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
