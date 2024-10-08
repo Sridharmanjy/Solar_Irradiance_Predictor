@@ -58,7 +58,7 @@ def split_data(df):
     :return: X_train, X_test, y_train, y_test
     """
     # Define target variable and features
-    x = df[['Temperature']]
+    x = df[['Temperature','Solar_zenith_angle']]
     y = df['Solar_Irradiance']
 
     # Split the data into 80% training and 20% testing sets

@@ -88,7 +88,7 @@ def save_cleaned_data(df, start_date, end_date):
 
 if __name__ == "__main__":
     try:
-        start_date , end_date = '20240515', '20240615'
+        start_date , end_date = '20230101', '20240101'
         raw_data = load_data_from_folder_in_json(start_date, end_date)
         cleaned_data = clean_solar_data(raw_data)
         first_missing_date = check_data_availability(cleaned_data)

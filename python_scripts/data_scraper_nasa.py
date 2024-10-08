@@ -43,11 +43,11 @@ def save_data_to_json(data, start_date, end_date):
         json.dump(data, file, indent=4)
     print(f"Data is saved to {file_path}")
 
-# to test script when running it directly, location : london, Period : 15days in May
+# to test script when running it directly, location : london, Period : year 2023
 if __name__ == "__main__":
     try:
         latitude, longitude = 51.54501, -0.00564
-        start_date , end_date = '20240515', '20240615'
+        start_date , end_date = '20230101', '20240101'
         solar_data = fetch_solar_data(latitude, longitude, start_date, end_date)
         save_data_to_json(solar_data, start_date, end_date)
     except Exception as e:
