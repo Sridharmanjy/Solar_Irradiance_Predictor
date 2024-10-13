@@ -7,7 +7,7 @@ This project aims to predict solar energy output based on solar irradiance, temp
 - **Data Collection**: Automated data scraping from **NASA POWER API** for solar irradiance and temperature over one year (hourly data).
 - **Data Processing**: Cleaned and transformed the data, handling missing values and feature engineering to include **solar zenith angle**, **temperature**, and **seasonality**.
 - **Predictive Modeling**: Built a linear regression model to predict solar irradiance, evaluated with metrics such as **R²**, **MAE**, and **MSE** using **Scikit-learn**.
-- **Data Visualization**: Created visualizations of actual vs predicted solar irradiance, seasonal averages, and geographical heat maps using **Matplotlib** and **Geopandas**.
+- **Data Visualization**: Created visualizations of actual vs predicted solar irradiance, seasonal averages, and geographical heat maps using **Matplotlib**
 
 ### Technologies Used
 - **Pandas**: Data cleaning, transformation, and analysis.
