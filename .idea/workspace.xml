@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="651081bf-d789-4263-a2d4-0761e1da3e35" name="Changes" comment="Added visualisation">
+    <list default="true" id="651081bf-d789-4263-a2d4-0761e1da3e35" name="Changes" comment="minor clean up">
+      <change afterPath="$PROJECT_DIR$/python_scripts/solar_irradiance_map.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_scripts/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_scripts/visualisation.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/visualisation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_scripts/data_cleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/data_cleaner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_scripts/data_scraper_nasa.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/data_scraper_nasa.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +57,7 @@
     "Python.data_scraper_nasa.executor": "Run",
     "Python.main.executor": "Run",
     "Python.model.executor": "Run",
+    "Python.solar_irradiance_map.executor": "Run",
     "Python.visualisation.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -98,7 +100,10 @@
       <workItem from="1728066043458" duration="24472000" />
       <workItem from="1728248368477" duration="681000" />
       <workItem from="1728256025907" duration="8700000" />
-      <workItem from="1728307740960" duration="15418000" />
+      <workItem from="1728307740960" duration="18845000" />
+      <workItem from="1728639949703" duration="265000" />
+      <workItem from="1729415350948" duration="3751000" />
+      <workItem from="1739123037794" duration="3093000" />
     </task>
     <task id="LOCAL-00001" summary="initial test">
       <option name="closed" value="true" />
@@ -212,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728382248212</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="minor clean up">
+      <option name="closed" value="true" />
+      <created>1728416365279</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728416365279</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,12 +262,14 @@
     <MESSAGE value="added segregation of the zenith angle for greater accuracy" />
     <MESSAGE value="removed segregation of the zenith angle due to instability. to be added in at the next version" />
     <MESSAGE value="Added visualisation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added visualisation" />
+    <MESSAGE value="minor clean up" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor clean up" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/solar_predictor_VE$data_scraper_nasa.coverage" NAME="data_scraper_nasa Coverage Results" MODIFIED="1728210328802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
-    <SUITE FILE_PATH="coverage/solar_predictor_VE$data_cleaner.coverage" NAME="data_cleaner Coverage Results" MODIFIED="1728210338284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
-    <SUITE FILE_PATH="coverage/solar_predictor_VE$model.coverage" NAME="model Coverage Results" MODIFIED="1728380401965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
+    <SUITE FILE_PATH="coverage/solar_predictor_VE$solar_irradiance_map.coverage" NAME="solar_irradiance_map Coverage Results" MODIFIED="1739134400321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
+    <SUITE FILE_PATH="coverage/solar_predictor_VE$data_scraper_nasa.coverage" NAME="data_scraper_nasa Coverage Results" MODIFIED="1739133696043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
+    <SUITE FILE_PATH="coverage/solar_predictor_VE$data_cleaner.coverage" NAME="data_cleaner Coverage Results" MODIFIED="1739133993571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
+    <SUITE FILE_PATH="coverage/solar_predictor_VE$model.coverage" NAME="model Coverage Results" MODIFIED="1728639959588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
     <SUITE FILE_PATH="coverage/solar_predictor_VE$visualisation.coverage" NAME="visualisation Coverage Results" MODIFIED="1728386630748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_scripts" />
     <SUITE FILE_PATH="coverage/solar_predictor_VE$main.coverage" NAME="main Coverage Results" MODIFIED="1727862835591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv/python_scripts" />
   </component>

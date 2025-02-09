@@ -33,10 +33,10 @@ def fetch_solar_data(latitude, longitude, start_date, end_date):
         raise Exception(f"Error fetching data: {response.status_code}")
 
 
-def save_data_to_json(data, start_date, end_date):
+def save_data_to_json(data, latitude, longitude, start_date, end_date):
     data_folder = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')),'data')
     os.makedirs(data_folder, exist_ok=True)
-    filename = f"solar_data_{start_date}_to_{end_date}.json"
+    filename = f"solar_data_lat_{latitude}_long_{longitude}_{start_date}_to_{end_date}.json"
     file_path = os.path.join(data_folder, filename)
 
     with open(file_path, 'w') as file:
@@ -49,6 +49,6 @@ if __name__ == "__main__":
         latitude, longitude = 51.54501, -0.00564
         start_date , end_date = '20230101', '20240101'
         solar_data = fetch_solar_data(latitude, longitude, start_date, end_date)
-        save_data_to_json(solar_data, start_date, end_date)
+        save_data_to_json(solar_data, latitude, longitude, start_date, end_date)
     except Exception as e:
         print(f"An error occurred: {str(e)}")

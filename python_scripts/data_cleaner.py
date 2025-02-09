@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 
-def load_data_from_folder_in_json(start_date, end_date):
+def load_data_from_folder_in_json(latitude, longitude, start_date, end_date):
     """
         Loads the raw solar data from a JSON file based on the start and end date.
         :param start_date: The start date of the data (format 'YYYYMMDD').
@@ -11,7 +11,7 @@ def load_data_from_folder_in_json(start_date, end_date):
         :return: The raw solar data as a dictionary.
     """
     data_folder = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')), 'data')
-    filename = f"solar_data_{start_date}_to_{end_date}.json"
+    filename = f"solar_data_lat_{latitude}_long_{longitude}_{start_date}_to_{end_date}.json"
     file_path = os.path.join(data_folder, filename)
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -71,7 +71,7 @@ def check_data_availability(df):
 
     return df
 
-def save_cleaned_data(df, start_date, end_date):
+def save_cleaned_data(df, latitude, longitude, start_date, end_date):
     """
     Saves the cleaned solar data to a JSON file in the data directory with start and end date in the filename.
     :param df: The cleaned pandas DataFrame containing solar data.
@@ -79,7 +79,7 @@ def save_cleaned_data(df, start_date, end_date):
     :param end_date: The end date of the data (format 'YYYYMMDD').
     """
     data_folder = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')),'data')
-    filename = f"cleaned_solar_data_{start_date}_to_{end_date}.json"
+    filename = f"cleaned_solar_data_lat_{latitude}_long_{longitude}_{start_date}_to_{end_date}.json"
     file_path = os.path.join(data_folder, filename)
 
     with open(file_path, 'w') as file:
@@ -89,9 +89,10 @@ def save_cleaned_data(df, start_date, end_date):
 if __name__ == "__main__":
     try:
         start_date , end_date = '20230101', '20240101'
-        raw_data = load_data_from_folder_in_json(start_date, end_date)
+        latitude, longitude = 51.54501, -0.00564
+        raw_data = load_data_from_folder_in_json(latitude, longitude, start_date, end_date)
         cleaned_data = clean_solar_data(raw_data)
         first_missing_date = check_data_availability(cleaned_data)
-        save_cleaned_data(cleaned_data, start_date, end_date)
+        save_cleaned_data(cleaned_data, latitude, longitude, start_date, end_date)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
