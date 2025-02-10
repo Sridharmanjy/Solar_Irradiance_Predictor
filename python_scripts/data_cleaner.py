@@ -18,6 +18,31 @@ def load_data_from_folder_in_json(latitude, longitude, start_date, end_date):
 
     return data
 
+def clean_solar_data_map(data):
+    """
+    Cleans the solar irradiance  converting invalid solar irradiance (-999) to NaN
+    and performing basic checks.
+    :param data: Dictionary containing raw solar data
+    :return: Cleaned pandas DataFrame.
+    """
+    # Convert the JSON data to pandas DataFrames
+
+    df_irradiance = pd.DataFrame(list(data['ALLSKY_SFC_SW_DWN'].items()), columns=['DateTime', 'Solar_Irradiance'])
+
+    # Convert DateTime to a proper datetime object. To note that the data is hourly. eg 2024052401
+    df_irradiance['DateTime'] = pd.to_datetime(df_irradiance['DateTime'], format='%Y%m%d%H')
+
+    # Replace invalid data (-999) with NaN
+    df_irradiance['Solar_Irradiance'] = df_irradiance['Solar_Irradiance'].replace(-999, np.nan)
+
+    # Ensure column is numeric
+    df_irradiance['Solar_Irradiance'] = pd.to_numeric(df_irradiance['Solar_Irradiance'], errors='coerce')
+
+    # Drop rows with NaN values (optional, only if you want to remove missing data)
+    df_irradiance.dropna(subset=['Solar_Irradiance'], inplace=True)
+
+    return df_irradiance
+
 def clean_solar_data(data):
     """
     Cleans the solar irradiance and temperature data, converting invalid solar irradiance (-999) to NaN
